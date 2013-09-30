@@ -5,12 +5,16 @@ import java.net.URI;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.junit.After;
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.jackson.JacksonFeature;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.david.rest.jersey.model.Person;
 
 /**
  * 
@@ -20,28 +24,29 @@ import org.junit.Test;
 public class MyResourceTest 
 {	
     private WebTarget target;
-    private static final String URL = "http://localhost:8089/jersey/rest/testservice/";    
+    private static final String BASE_RESOURCE_URL = "http://localhost:8089/jersey/rest/";    
+    private static final String PERSON_SERVICE_URL = "personService/";
     
     @Before
     public void setUp() throws Exception 
     {
-        Client c = ClientBuilder.newClient();
-        target = c.target(URI.create(URL));
+    	// Configuration of Client, we must register Jackson feature and providers.
+        ClientConfig clientConfig = new ClientConfig();              
+        clientConfig.register(new JacksonFeature());
+        clientConfig.register(ObjectMappedProvider.class);
+        
+        // Create the client and set the REST service URL
+        Client client = ClientBuilder.newClient(clientConfig);
+        target = client.target(URI.create(BASE_RESOURCE_URL));
         //server = HttpServer.createSimpleServer();
-    }
-
-    @After
-    public void tearDown() throws Exception 
-    {
-        //server.shutdownNow();
     }
         
     @Test
-    public void testResponse() 
-    {       
-        Response response = target.path("getItAsJSON").request().get();
-        Assert.assertEquals(response.getStatus(), Response.Status.OK.getStatusCode());
-        //Person person = target.path("getItAsJSON").request().get(Person.class);
-        //Assert.assertNotNull(person);
+    public void testGetPersonResource() 
+    {   
+        Response response = target.path(PERSON_SERVICE_URL+"getPerson").request().get();
+        Assert.assertEquals(response.getStatus(), Response.Status.OK.getStatusCode());        
+        Person person = target.path(PERSON_SERVICE_URL+"getPerson").request(MediaType.APPLICATION_JSON).get(Person.class);
+        Assert.assertNotNull(person);
     }
 }

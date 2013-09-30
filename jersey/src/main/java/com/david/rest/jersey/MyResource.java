@@ -9,6 +9,8 @@ import com.david.rest.jersey.model.Person;
 
 /**
  * Root resource (exposed at "rest/testservice" path)
+ * 
+ * @author daviD_dev
  */
 @Path("testservice")
 public class MyResource {
@@ -46,15 +48,4 @@ public class MyResource {
     {
         return "<head>Got it as XML2!</head>";
     }
-    
-    @Path("getItAsJSON")
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Person sendJSONResponse() 
-	{
-		Person person = new Person(); 		
-		person.setId(1);
-		person.setName("david");
-		return person;
-	}
 }
