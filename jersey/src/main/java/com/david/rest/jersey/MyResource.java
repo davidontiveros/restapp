@@ -12,7 +12,7 @@ import com.david.rest.jersey.model.Person;
  * 
  * @author daviD_dev
  */
-@Path("testservice")
+@Path("testService")
 public class MyResource {
 
     /**
@@ -42,7 +42,7 @@ public class MyResource {
      * @return
      */
     @GET
-    @Path("getItAsXml")
+    @Path("getXML")
     @Produces(MediaType.TEXT_XML)
     public String getItAsXml() 
     {
