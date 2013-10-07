@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.david.rest.jersey;
+package com.david.rest.jersey.providers;
 
 import javax.ws.rs.ext.ContextResolver;
 

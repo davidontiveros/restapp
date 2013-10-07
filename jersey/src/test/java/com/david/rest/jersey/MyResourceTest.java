@@ -15,6 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.david.rest.jersey.model.Person;
+import com.david.rest.jersey.providers.ObjectMappedProvider;
 
 /**
  * 

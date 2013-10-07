@@ -9,6 +9,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonRootName;
 
 /**
+ * TODO: javadoc.
  * @author daviD_dev
  *
  */
@@ -16,11 +17,16 @@ import org.codehaus.jackson.map.annotate.JsonRootName;
 @XmlRootElement(name="person")
 public class Person 
 {
+	public static final String JSON_RESPONSE = "json/person";
+	
 	@JsonProperty("id")
 	int id;
 	
 	@JsonProperty("name")
 	String name;
+	
+	// empty constructor needed for deserialization by JAXB
+	public Person() {}
 
 	/**
 	 * @return the id
