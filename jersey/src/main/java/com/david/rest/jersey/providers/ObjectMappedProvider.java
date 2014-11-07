@@ -5,14 +5,14 @@ package com.david.rest.jersey.providers;
 
 import javax.ws.rs.ext.ContextResolver;
 
-import org.codehaus.jackson.map.AnnotationIntrospector;
-import org.codehaus.jackson.map.AnnotationIntrospector.Pair;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.SerializationConfig.Feature;
-import org.codehaus.jackson.map.introspect.JacksonAnnotationIntrospector;
-import org.codehaus.jackson.xc.JaxbAnnotationIntrospector;
-
 import com.david.rest.jersey.model.Person;
+import com.fasterxml.jackson.databind.AnnotationIntrospector;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
+import com.fasterxml.jackson.databind.type.TypeFactory;
+import com.fasterxml.jackson.module.jaxb.JaxbAnnotationIntrospector;
 
 /**
  * @author daviD_dev
@@ -25,8 +25,8 @@ public class ObjectMappedProvider implements ContextResolver<ObjectMapper>
 
 	public ObjectMappedProvider() 
 	{   
-		Pair combinedIntrospector = createJaxbJacksonAnnotationIntrospector();
-		customObjectMapper = createCustomObjectMapper(combinedIntrospector);
+		AnnotationIntrospector jaxbJacksonAnnotationIntrospector = createJaxbJacksonAnnotationIntrospector();
+		customObjectMapper = createCustomObjectMapper(jaxbJacksonAnnotationIntrospector);
 		defaultObjectMapper = createDefaultMapper();
 	}
 	
@@ -43,12 +43,19 @@ public class ObjectMappedProvider implements ContextResolver<ObjectMapper>
         }		
 	}
 	
-	private static ObjectMapper createCustomObjectMapper(Pair combinedIntrospector) 
+	private static ObjectMapper createCustomObjectMapper(AnnotationIntrospector  combinedIntrospector) 
 	{		 
 		ObjectMapper result = new ObjectMapper();
 		
+		 result
+         .configure(SerializationFeature.WRAP_ROOT_VALUE, true)
+         .configure(DeserializationFeature.UNWRAP_ROOT_VALUE, true)
+         .setAnnotationIntrospector(combinedIntrospector);
+		
+		/* old code for jersey version 2.2
 		result.setDeserializationConfig(result.getDeserializationConfig().withAnnotationIntrospector(combinedIntrospector));
 		result.setSerializationConfig(result.getSerializationConfig().withAnnotationIntrospector(combinedIntrospector));
+		*/
 		
 		/**
 		 * Really only use this below configurations when your JSON result has the root name explicit. 
@@ -62,16 +69,22 @@ public class ObjectMappedProvider implements ContextResolver<ObjectMapper>
 	private static ObjectMapper createDefaultMapper() 
 	{
         ObjectMapper result = new ObjectMapper();
-        result.configure(Feature.INDENT_OUTPUT, true);
+        result.enable(SerializationFeature.INDENT_OUTPUT);
         return result;
     }
 	
 	
 
-	private static Pair createJaxbJacksonAnnotationIntrospector() 
+	private static AnnotationIntrospector createJaxbJacksonAnnotationIntrospector() 
 	{
+		AnnotationIntrospector jaxbIntrospector = new JaxbAnnotationIntrospector(TypeFactory.defaultInstance());
+		AnnotationIntrospector jacksonIntrospector = new JacksonAnnotationIntrospector();
+		return AnnotationIntrospector.pair(jacksonIntrospector, jaxbIntrospector);
+		
+		/* old code for jersey version 2.2
 		AnnotationIntrospector jaxbIntrospector = new JaxbAnnotationIntrospector();
 		AnnotationIntrospector jacksonIntrospector = new JacksonAnnotationIntrospector();
 		return new AnnotationIntrospector.Pair(jacksonIntrospector, jaxbIntrospector);
+		*/
 	}
 }

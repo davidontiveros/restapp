@@ -25,7 +25,7 @@ import com.david.rest.jersey.providers.ObjectMappedProvider;
 public class MyResourceTest 
 {	
     private WebTarget target;
-    private static final String BASE_RESOURCE_URL = "http://localhost:8089/jersey/rest/";    
+    private static final String BASE_RESOURCE_URL = "http://localhost:8081/jersey/rest/";    
     private static final String PERSON_SERVICE_URL = "personService/";
     
     @Before
