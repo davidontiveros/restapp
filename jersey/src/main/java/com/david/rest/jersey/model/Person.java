@@ -3,9 +3,12 @@
  */
 package com.david.rest.jersey.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * TODO: javadoc.
@@ -20,7 +23,7 @@ public class Person
 	public static final String JSON_ARRAY_RESPONSE = "json/persons";
 	
 	@JsonProperty("id")
-	private int id;
+	private Integer id;
 	
 	@JsonProperty("name")
 	private String name;
@@ -28,11 +31,8 @@ public class Person
 	@JsonProperty("lastname")
 	private String lastname;
 	
-	@JsonProperty("age")
-	private int age;
-	
-	@JsonProperty("weight")
-	double weight;
+	@JsonProperty("personSkills")
+	private List<PersonSkill> personSkills = new ArrayList<PersonSkill>();
 	
 	public Person() 
 	{
@@ -45,26 +45,25 @@ public class Person
 		this.name = name;
 	}
 	
-	public Person(int id, String name, String lastname, int age, double weight) 
+	public Person(int id, String name, String lastname, List<PersonSkill> skills) 
 	{
 		this.id = id;
 		this.name = name;
 		this.lastname = lastname;
-		this.age = age;
-		this.weight = weight;
+		this.personSkills = skills;
 	}
 	
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -82,29 +81,37 @@ public class Person
 		this.name = name;
 	}
 
+	/**
+	 * @return the lastname
+	 */
 	public String getLastname() {
 		return lastname;
 	}
 
+	/**
+	 * @param lastname the lastname to set
+	 */
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
 
-	public int getAge() {
-		return age;
+	/**
+	 * @return the skills
+	 */
+	public List<PersonSkill> getPersonSkills() {
+		return personSkills;
 	}
 
-	public void setAge(int age) {
-		this.age = age;
+	/**
+	 * @param skills the skills to set
+	 */
+	public void setPersonSkills(List<PersonSkill> skills) {
+		this.personSkills = skills;
 	}
 
-	public double getWeight() {
-		return weight;
-	}
-
-	public void setWeight(double weight) {
-		this.weight = weight;
-	}
 	
-	
+	public void addPersonSkill(PersonSkill skill) 
+	{
+		this.personSkills.add(skill);
+	}
 }

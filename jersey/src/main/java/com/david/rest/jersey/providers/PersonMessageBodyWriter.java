@@ -62,7 +62,7 @@ public class PersonMessageBodyWriter implements MessageBodyWriter<Person>
 	        }
 		  */
 		// This uses the existing Jackson JSON provider to generate a JSON structure representing the Person object
-		JacksonJsonProvider provider = new JacksonJsonProvider();		
+		JacksonJsonProvider provider = new JacksonJsonProvider();
 		provider.writeTo(person, type, genericType, annotations, mediaType, httpHeaders, entityStream);
 		
 	}
