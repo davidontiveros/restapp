@@ -20,7 +20,7 @@ function routeConfig($routeProvider){
 	}).
 	when('/profile/:id', {
 		controller: 'DetailController', 
-		templateUrl: '/jsp/profile.jsp'
+		templateUrl: 'jsp/profile.jsp'
 	}).
 	otherwise({
 		redirectTo: '/list'
@@ -64,7 +64,14 @@ appModule.filter('skillInfo', ['$sce', function($sce){
 }]);
 
 // Detail Controller
-appModule.controller('DetailController', function($scope, $routeParams, $http){	
+appModule.controller('DetailController', function($scope, $routeParams, $http){
+	
+	$scope.test = function(){
+		console.log($scope.person);
+		//$http.post('rest/testService/', {dbname:"david"});
+		$http.post('rest/personService/postPerson', $scope.person);
+	};
+	
 	function onSuccess(data, status, headers, config){
 		$scope.person = angular.extend(new Person(), data);
 	}

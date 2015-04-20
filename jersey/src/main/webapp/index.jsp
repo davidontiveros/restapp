@@ -33,23 +33,23 @@
   </head>
   <body>
 
-	<!-- menu here -->
-	<div ng-include="'jsp/navbar.jsp'">
+	<!-- menu here -->	
+	<div ng-include="'jsp/navbar.jsp'"></div>
 
 	<div class="container">
-
-	<style>
-		.starter-template{
-			padding-top: 10px;
-		}
-	</style>
-      <div class="starter-template">
-        <!--  <p class="lead">bootstrap + angular.js + jersey example</p> -->
-        
-        <!-- here is were all html template are injected by angular router -->
-        <div ng-view></div>
-        
-      </div>
+			
+		<style>
+			.starter-template{
+				padding-top: 10px;
+			}
+		</style>
+	      <div class="starter-template">
+	        <!--  <p class="lead">bootstrap + angular.js + jersey example</p> -->
+	        
+	        <!-- here is were all html template are injected by angular router -->
+	        <div ng-view></div>
+	        
+	      </div>
 
     </div>
     

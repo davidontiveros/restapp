@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  */
 
-@XmlRootElement(name="person")
+@XmlRootElement(name="Person")
 public class Person 
 {
 	public static final String JSON_RESPONSE = "json/person";

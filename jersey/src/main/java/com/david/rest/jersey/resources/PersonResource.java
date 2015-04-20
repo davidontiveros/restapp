@@ -13,9 +13,11 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import com.david.rest.jersey.controllers.Controllers;
 import com.david.rest.jersey.model.Person;
+import com.david.rest.jersey.providers.data.PersonDBProvider;
 
 /**
  * TODO: javadoc.
@@ -25,12 +27,13 @@ import com.david.rest.jersey.model.Person;
 @Path("personService")
 public class PersonResource 
 {
+	private PersonDBProvider personDbProvider = new PersonDBProvider();
+	
 	@Path("getPerson/{id}")
 	@GET
 	@Produces(Person.JSON_RESPONSE)
 	public Person getPerson(@PathParam("id") int id) 
-	{
-		System.out.println(id);
+	{		
 		Person person = Controllers.getPersonController().get(id);
 		return person;
 	}
@@ -54,10 +57,12 @@ public class PersonResource
 	
 	@Path("postPerson")
 	@POST
-	@Consumes(Person.JSON_RESPONSE)
+	@Consumes(MediaType.APPLICATION_JSON)
 	public void upsertPerson(Person person)
 	{
-		System.out.println("entered to upsert!");
+		System.out.println(person != null ? person.getName() : "person is null");
+		Object id = personDbProvider.insert(person);
+		System.out.println(id != null ? id : "id is null");
 	}
 	
 	@Path("deletePerson")

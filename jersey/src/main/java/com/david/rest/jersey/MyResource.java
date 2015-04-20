@@ -5,8 +5,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.david.rest.jersey.model.Person;
-
 /**
  * TODO: javadoc.
  * Root resource (exposed at "rest/testservice" path)
@@ -14,8 +12,8 @@ import com.david.rest.jersey.model.Person;
  * @author daviD_dev
  */
 @Path("testService")
-public class MyResource {
-
+public class MyResource 
+{
     /**
      * 
      * @return

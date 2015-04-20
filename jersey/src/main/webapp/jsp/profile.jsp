@@ -9,3 +9,5 @@
 	<br>
 	Weight: {{person.weight}}
 </div>
+
+<button ng-click="test()">clickme</button>
