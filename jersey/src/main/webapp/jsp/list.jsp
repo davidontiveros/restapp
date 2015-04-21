@@ -43,7 +43,7 @@ h2{
 	</thead>
 	<tbody>
 		<tr ng-repeat="person in persons | filter: filterText">
-			<td>{{person.id}}<a ng-href="#/profile/{{person.id}}"></a></td>
+			<td>{{person.id.id}}<a ng-href="#/profile/{{person.id}}"></a></td>
 			<td>{{person.name}}<a ng-href="#/profile/{{person.id}}"></a></td>
 			<td class="skills"><h4 ng-bind-html="person | skillInfo"></h4></td>
 		</tr>

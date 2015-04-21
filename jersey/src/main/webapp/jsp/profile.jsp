@@ -1,13 +1,13 @@
 <div ng-controller="DetailController">
-	Id: {{person.id}}
-	<br>
-	Name: {{person.name}}
-	<br>
-	Lastname: {{person.lastname}}
-	<br>
-	Age: {{person.age}}
-	<br>
-	Weight: {{person.weight}}
-</div>
 
-<button ng-click="test()">clickme</button>
+<form>
+  <div class="form-group">
+    <label>Name</label>
+    <input ng-model="personChanges.name" type="text" class="form-control" placeholder="Enter name">
+  </div>
+  <div class="form-group">
+    <label>Lastname</label>
+    <input ng-model="personChanges.lastname" type="text" class="form-control" placeholder="Enter lastname">
+  </div>
+  <button ng-click="save()" class="btn btn-default">Save</button>
+</form>

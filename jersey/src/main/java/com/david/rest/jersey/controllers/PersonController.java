@@ -21,6 +21,7 @@ public class PersonController
 	private static Integer TOP_ID;
 	
 	static{
+		/*
 		dummyPersons.add(new Person(1, "David"));
 		dummyPersons.add(new Person(2, "Juan"));
 		dummyPersons.add(new Person(3, "Irma"));
@@ -33,11 +34,13 @@ public class PersonController
 		dummyPersons.add(new Person(10, "Irma"));
 		dummyPersons.add(new Person(11, "Luis"));
 		TOP_ID = 11;
+		*/
 	}
 	
 	public List<Person> getAll()
 	{
 		List<Person> persons = new ArrayList<Person>();
+		/*
 		for(Person person : dummyPersons)
 		{
 			List<PersonSkill> personSkills = new ArrayList<PersonSkill>();
@@ -55,6 +58,7 @@ public class PersonController
 			person.setPersonSkills(personSkills);
 			persons.add(person);
 		}
+		*/
 		return persons;
 	}
 	

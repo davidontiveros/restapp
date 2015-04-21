@@ -22,6 +22,10 @@ function routeConfig($routeProvider){
 		controller: 'DetailController', 
 		templateUrl: 'jsp/profile.jsp'
 	}).
+	when('/profile', {
+		controller: 'DetailController', 
+		templateUrl: 'jsp/profile.jsp'
+	}).
 	otherwise({
 		redirectTo: '/list'
 	});
@@ -66,14 +70,39 @@ appModule.filter('skillInfo', ['$sce', function($sce){
 // Detail Controller
 appModule.controller('DetailController', function($scope, $routeParams, $http){
 	
+	$scope.person = {};
+	$scope.personChanges = {};
+	var isNew = true;
+	
+	function onPersonLoaded(data, status, headers, config){
+		//$scope.person = angular.extend(new Person(), data);
+		angular.extend($scope.personChanges, data);
+	}
+	
 	$scope.test = function(){
+		console.log($scope.personChanges);
+		angular.extend($scope.person, $scope.personChanges);
 		console.log($scope.person);
 		//$http.post('rest/testService/', {dbname:"david"});
-		$http.post('rest/personService/postPerson', $scope.person);
+		//$http.post('rest/personService/postPerson', $scope.person);
 	};
 	
-	function onSuccess(data, status, headers, config){
-		$scope.person = angular.extend(new Person(), data);
+	$scope.save = function(){
+		if(isNew){
+			console.log($scope.personChanges);
+			angular.extend($scope.person, $scope.personChanges);
+			console.log($scope.person);
+			$http.post('rest/personService/postPerson', $scope.person);
+		}
 	}
-	$http.get('rest/personService/getPerson/'+$routeParams.id).success(onSuccess);
+	
+	
+	
+	if($routeParams.id){
+		isNew = false;
+		$http.get('rest/personService/getPerson/'+$routeParams.id).success(onPersonLoaded);
+	}
+	else{
+		
+	}
 });

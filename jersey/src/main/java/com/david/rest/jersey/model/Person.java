@@ -8,6 +8,9 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Transient;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -16,22 +19,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  */
 
-@XmlRootElement(name="Person")
-public class Person 
+@XmlRootElement(name="person")
+@org.mongodb.morphia.annotations.Entity
+public class Person extends BaseEntity
 {
 	public static final String JSON_RESPONSE = "json/person";
 	public static final String JSON_ARRAY_RESPONSE = "json/persons";
 	
-	@JsonProperty("id")
-	private Integer id;
-	
-	@JsonProperty("name")
+	//private Integer id;
 	private String name;
-	
-	@JsonProperty("lastname")
 	private String lastname;
-	
-	@JsonProperty("personSkills")
+	@org.mongodb.morphia.annotations.Transient
 	private List<PersonSkill> personSkills = new ArrayList<PersonSkill>();
 	
 	public Person() 
@@ -39,12 +37,15 @@ public class Person
 		// TODO Auto-generated constructor stub
 	}
 	
+	/*
 	public Person(int id, String name) 
 	{
 		this.id = id;
 		this.name = name;
 	}
+	*/
 	
+	/*
 	public Person(int id, String name, String lastname, List<PersonSkill> skills) 
 	{
 		this.id = id;
@@ -52,20 +53,21 @@ public class Person
 		this.lastname = lastname;
 		this.personSkills = skills;
 	}
+	*/
 	
 	/**
 	 * @return the id
-	 */
+	 
 	public Integer getId() {
 		return id;
-	}
+	}*/
 
 	/**
 	 * @param id the id to set
-	 */
+	 
 	public void setId(Integer id) {
 		this.id = id;
-	}
+	}*/
 
 	/**
 	 * @return the name
@@ -113,5 +115,11 @@ public class Person
 	public void addPersonSkill(PersonSkill skill) 
 	{
 		this.personSkills.add(skill);
+	}
+	
+	@Override
+	public String toString() 
+	{	
+		return super.toString()+", name:"+this.name+", lastname:"+this.lastname+", skills:"+this.personSkills;
 	}
 }

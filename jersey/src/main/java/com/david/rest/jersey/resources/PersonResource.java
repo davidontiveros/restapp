@@ -15,9 +15,11 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.mongodb.morphia.query.QueryResults;
+
 import com.david.rest.jersey.controllers.Controllers;
+import com.david.rest.jersey.daos.PersonDao;
 import com.david.rest.jersey.model.Person;
-import com.david.rest.jersey.providers.data.PersonDBProvider;
 
 /**
  * TODO: javadoc.
@@ -26,8 +28,8 @@ import com.david.rest.jersey.providers.data.PersonDBProvider;
  */
 @Path("personService")
 public class PersonResource 
-{
-	private PersonDBProvider personDbProvider = new PersonDBProvider();
+{	
+	private PersonDao personDao = new PersonDao();
 	
 	@Path("getPerson/{id}")
 	@GET
@@ -43,8 +45,13 @@ public class PersonResource
 	@Produces(Person.JSON_ARRAY_RESPONSE)
 	public List<Person> getPersons() 
 	{
-		List<Person> list = Controllers.getPersonController().getAll();
-		return list;					
+		//List<Person> list = Controllers.getPersonController().getAll();
+		QueryResults<Person> result = personDao.find();
+		for(Person person : result.asList())
+		{
+			System.out.println(person);
+		}
+		return result.asList();					
 	}
 		
 	@Path("putPerson")
@@ -61,8 +68,7 @@ public class PersonResource
 	public void upsertPerson(Person person)
 	{
 		System.out.println(person != null ? person.getName() : "person is null");
-		Object id = personDbProvider.insert(person);
-		System.out.println(id != null ? id : "id is null");
+		personDao.save(person);
 	}
 	
 	@Path("deletePerson")
