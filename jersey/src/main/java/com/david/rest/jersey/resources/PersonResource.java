@@ -34,9 +34,10 @@ public class PersonResource
 	@Path("getPerson/{id}")
 	@GET
 	@Produces(Person.JSON_RESPONSE)
-	public Person getPerson(@PathParam("id") int id) 
+	public Person getPerson(@PathParam("id") String id) 
 	{		
-		Person person = Controllers.getPersonController().get(id);
+		//Person person = Controllers.getPersonController().get(id);
+		Person person = personDao.findById(id);
 		return person;
 	}
 	
@@ -67,7 +68,7 @@ public class PersonResource
 	@Consumes(MediaType.APPLICATION_JSON)
 	public void upsertPerson(Person person)
 	{
-		System.out.println(person != null ? person.getName() : "person is null");
+		System.out.println(person != null ? person.toString() : "person is null");
 		personDao.save(person);
 	}
 	

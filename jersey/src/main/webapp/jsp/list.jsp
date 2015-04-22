@@ -11,10 +11,13 @@
 .table th{
 	text-align: center;
 }
-.table tbody tr td.skills{
+.table th.skills{
 	text-align: left;
 }
-.table th.skills{
+.table tbody tr.personRow{
+	cursor: pointer;
+}
+.table tbody tr td.skills{
 	text-align: left;
 }
 h2{
@@ -36,15 +39,15 @@ h2{
 	<table class="table table-striped" ng-controller="ListController">
 	<thead>
 		<tr>
-			<th>id</th>
-			<th>Name</th>
+			<th>Person</th>
 			<th class="skills">Skills</th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="person in persons | filter: filterText">
-			<td>{{person.id.id}}<a ng-href="#/profile/{{person.id}}"></a></td>
-			<td>{{person.name}}<a ng-href="#/profile/{{person.id}}"></a></td>
+		<tr class="personRow" ng-repeat="person in persons | filter: filterText" 
+			ng-class="hoverRowClass" ng-mouseenter="hoverRowClass='success'" ng-mouseleave="hoverRowClass=''"
+			ng-click="viewProfile(person._id);">
+			<td>{{person.lastname +", "+person.name}}<a ng-href="#/profile/{{person.id}}"></a></td>			
 			<td class="skills"><h4 ng-bind-html="person | skillInfo"></h4></td>
 		</tr>
 	</tbody>

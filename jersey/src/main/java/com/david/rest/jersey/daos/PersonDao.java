@@ -3,6 +3,7 @@
  */
 package com.david.rest.jersey.daos;
 
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.dao.BasicDAO;
 
@@ -24,5 +25,11 @@ public class PersonDao extends BasicDAO<Person, String>
 	protected PersonDao(MongoClient mongoClient, Morphia morphia, String dbName) 
 	{
 		super(mongoClient, morphia, dbName);
+	}
+	
+	public Person findById(String id)
+	{
+		ObjectId _id = new ObjectId(id);
+		return getDatastore().find(Person.class).field("_id").equal(_id).get();
 	}
 }

@@ -18,7 +18,7 @@ function routeConfig($routeProvider){
 		controller: 'ListController', 
 		templateUrl: 'jsp/list.jsp'
 	}).
-	when('/profile/:id', {
+	when('/profile/:_id', {
 		controller: 'DetailController', 
 		templateUrl: 'jsp/profile.jsp'
 	}).
@@ -35,11 +35,18 @@ function routeConfig($routeProvider){
 appModule.config(routeConfig);
 
 //List Controller
-appModule.controller('ListController', function($scope, $http){
+appModule.controller('ListController', function($scope, $http, $location){
 	$scope.persons = [];
+	
 	function onSuccess(data, status, headers, config){
 		$scope.persons = data;
 	}
+	
+	$scope.viewProfile = function(_id){
+		console.log(_id);
+		$location.path("/profile/"+_id);
+	}
+	
 	$http.get('rest/personService/getPersons').success(onSuccess);
 });
 
@@ -68,15 +75,18 @@ appModule.filter('skillInfo', ['$sce', function($sce){
 }]);
 
 // Detail Controller
-appModule.controller('DetailController', function($scope, $routeParams, $http){
+appModule.controller('DetailController', function($scope, $routeParams, $http, $location){
 	
 	$scope.person = {};
 	$scope.personChanges = {};
 	var isNew = true;
 	
 	function onPersonLoaded(data, status, headers, config){
-		//$scope.person = angular.extend(new Person(), data);
 		angular.extend($scope.personChanges, data);
+	}
+	
+	function redirectToList(){
+		$location.path("/list")
 	}
 	
 	$scope.test = function(){
@@ -89,20 +99,16 @@ appModule.controller('DetailController', function($scope, $routeParams, $http){
 	
 	$scope.save = function(){
 		if(isNew){
-			console.log($scope.personChanges);
-			angular.extend($scope.person, $scope.personChanges);
-			console.log($scope.person);
-			$http.post('rest/personService/postPerson', $scope.person);
 		}
+		else{
+		}		
+		angular.extend($scope.person, $scope.personChanges);
+		console.log($scope.person);
+		$http.post('rest/personService/postPerson', $scope.person).success(redirectToList);
 	}
 	
-	
-	
-	if($routeParams.id){
+	if($routeParams._id){
 		isNew = false;
-		$http.get('rest/personService/getPerson/'+$routeParams.id).success(onPersonLoaded);
-	}
-	else{
-		
+		$http.get('rest/personService/getPerson/'+$routeParams._id).success(onPersonLoaded);
 	}
 });
