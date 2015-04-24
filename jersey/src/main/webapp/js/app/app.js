@@ -83,6 +83,36 @@ appModule.controller('DetailController', function($scope, $routeParams, $http, $
 	
 	function onPersonLoaded(data, status, headers, config){
 		angular.extend($scope.personChanges, data);
+
+		// add dummy skills by the moment ..
+		var skillPHP = {
+			"level" : 1,
+			"skill" :
+			{
+				"_id" : "01",
+				"name" : "PHP"
+			}
+		};
+		var skillJava = {
+			"level" : 3,
+			"skill" :
+			{
+				"_id" : "02",
+				"name" : "Java"
+			}
+		};
+		var skillNet = {
+			"level" : 2,
+			"skill" :
+			{
+				"_id" : "03",
+				"name" : ".Net"
+			}
+		};
+		var dummySkills = [skillPHP, skillJava, skillNet];
+		$scope.personChanges.personSkills = dummySkills;
+		//console.log($scope.personChanges);
+
 	}
 	
 	function redirectToList(){
@@ -96,6 +126,14 @@ appModule.controller('DetailController', function($scope, $routeParams, $http, $
 		//$http.post('rest/testService/', {dbname:"david"});
 		//$http.post('rest/personService/postPerson', $scope.person);
 	};
+
+	$scope.editSkill = function(personSkill){
+		console.log('personSkill '+personSkill.skill.name);
+		$scope.personSkillChanges = {};
+		angular.extend($scope.personSkillChanges, personSkill);
+		console.log('personSkillChanges '+$scope.personSkillChanges.skill.name);
+		$('#editSkillModal').modal();
+	};
 	
 	$scope.save = function(){
 		if(isNew){
@@ -104,7 +142,7 @@ appModule.controller('DetailController', function($scope, $routeParams, $http, $
 		}		
 		angular.extend($scope.person, $scope.personChanges);
 		console.log($scope.person);
-		$http.post('rest/personService/postPerson', $scope.person).success(redirectToList);
+		//$http.post('rest/personService/postPerson', $scope.person).success(redirectToList);
 	}
 	
 	if($routeParams._id){
