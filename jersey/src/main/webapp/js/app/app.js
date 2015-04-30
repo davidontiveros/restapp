@@ -1,15 +1,4 @@
-var appModule = angular.module('app', ['ngRoute']);
-
-function Person()
-{
-	/*
-	var id;
-	var name;
-	var lastname;
-	var age;
-	var weight;
-	*/
-}
+var appModule = angular.module('app', ['ngRoute', 'ui.bootstrap'] );
 
 // Router Configuration
 function routeConfig($routeProvider){
@@ -75,8 +64,10 @@ appModule.filter('skillInfo', ['$sce', function($sce){
 }]);
 
 // Detail Controller
-appModule.controller('DetailController', function($scope, $routeParams, $http, $location){
-	
+appModule.controller('DetailController', function($scope, $routeParams, $http, $location, $modal){
+
+	$scope.isCollapsed = true;
+
 	$scope.person = {};
 	$scope.personChanges = {};
 	var isNew = true;
@@ -112,7 +103,7 @@ appModule.controller('DetailController', function($scope, $routeParams, $http, $
 		var dummySkills = [skillPHP, skillJava, skillNet];
 		$scope.personChanges.personSkills = dummySkills;
 		//console.log($scope.personChanges);
-
+		$scope.states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
 	}
 	
 	function redirectToList(){
@@ -128,11 +119,27 @@ appModule.controller('DetailController', function($scope, $routeParams, $http, $
 	};
 
 	$scope.editSkill = function(personSkill){
+
+		var modalInstance = $modal.open({
+			templateUrl: 'editSkillModal.html',
+			controller: 'ModalInstanceController',
+			resolve: {
+				personSkill: function(){
+					return personSkill;
+				}
+			}
+		});
+
+		modalInstance.result.then(function (personSkill) {
+
+		});
+		/*
 		console.log('personSkill '+personSkill.skill.name);
 		$scope.personSkillChanges = {};
 		angular.extend($scope.personSkillChanges, personSkill);
 		console.log('personSkillChanges '+$scope.personSkillChanges.skill.name);
 		$('#editSkillModal').modal();
+		*/
 	};
 	
 	$scope.save = function(){
@@ -149,4 +156,15 @@ appModule.controller('DetailController', function($scope, $routeParams, $http, $
 		isNew = false;
 		$http.get('rest/personService/getPerson/'+$routeParams._id).success(onPersonLoaded);
 	}
+});
+
+appModule.controller('ModalInstanceController', function ($scope, $modalInstance, personSkill){
+
+	$scope.personSkill = personSkill;
+
+	$scope.setLevel = function(level){
+		$scope.personSkill.level = level;
+		$modalInstance.close(personSkill);
+	};
+
 });

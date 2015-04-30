@@ -10,9 +10,12 @@
       <input ng-model="personChanges.lastname" type="text" class="form-control" placeholder="Enter lastname"/>
     </div>
 
-    <label>Skills</label>
+    <div class="form-group">
+      <label>Skills</label>
+      <input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue" class="form-control">
+    </div>
     <div class="panel panel-default">
-      <div class="panel-body">
+      <div class="panel-body well" style="margin: 0px;">
         <!--
         <div class="btn-group">
           <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
@@ -55,46 +58,48 @@
         <div class="btn-group">
           <button type="button" class="btn btn-warning">.Net</button>
         </div>
-        -->
 
+
+        <button class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Toggle collapse</button>
+        <div collapse="isCollapsed">
+          <div class="well well-lg">Some content</div>
+        </div>
+        -->
     </div>
   </div>
 
   <button ng-click="save()" class="btn btn-sm btn-primary">Save</button>
 </form>
 
+  <!-- Modal to edit -->
 
-    <!-- Modal to edit -->
-    <div class="modal fade" id="editSkillModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <label>select level of knowledge for <u>{{personSkillChanges.skill.name}}</u></label>
+    <script type="text/ng-template" id="editSkillModal.html">
+      <div class="modal-header">
+        <label>Select level of knowledge for <u>{{personSkill.skill.name}}</u></label>
+      </div>
+      <div class="modal-body" style="padding-bottom: 40px; padding-top: 30px;">
+        <!--{{personSkillChanges.level}}-->
+        <div class="btn-group btn-group-justified" role="group">
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-warning" ng-click="setLevel(1)">Low</button>
           </div>
-          <div class="modal-body">
-            <!--{{personSkillChanges.level}}-->
-                <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                  <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default">Low</button>
-                  </div>
-                  <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default">Medium</button>
-                  </div>
-                  <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default">High</button>
-                  </div>
-                </div>
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-info" ng-click="setLevel(2)">Medium</button>
           </div>
-          <!--
-          <div class="modal-footer" style="text-align: left;">
-            <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-sm btn-primary">Save</button>
-            <button type="button" class="btn btn-sm btn-danger">Delete</button>
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-success" ng-click="setLevel(3)">High</button>
           </div>
-          -->
         </div>
       </div>
+    </script>
+
+    <!--
+    <div class="modal-footer" style="text-align: left;">
+      <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Cancel</button>
+      <button type="button" class="btn btn-sm btn-primary">Save</button>
+      <button type="button" class="btn btn-sm btn-danger">Delete</button>
     </div>
+    -->
 
 
 </div>

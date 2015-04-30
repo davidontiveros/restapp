@@ -6,23 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
  	
- 	<link   href="css/styles.css" rel="stylesheet" type="text/css"/>   
-    
+ 	<link href="css/styles.css" rel="stylesheet" type="text/css"/>
+    <!-- Bootstrap -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
     <script src="js/libs/angular.min.js.map"></script>	
 	<script src="js/libs/angular.min.js"></script>
 	<script src="js/libs/angular-route.js"></script>
-	
-	<script src="js/app/app.js"></script>
-	
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="js/libs/ui-bootstrap-tpls-0.12.1.min.js"></script>
+
+    <script src="js/app/app.js"></script>
+
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins)
     <script src="js/libs/jquery-1.10.2.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    -->
+    <!-- Include all compiled plugins (below), or include individual files as needed
     <script src="bootstrap/js/bootstrap.min.js"></script>
+    -->
     
     <title>app demo</title>
-
-    <!-- Bootstrap -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
