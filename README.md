@@ -6,5 +6,6 @@
   <li>Morphia as POJOs to/from NOSQL MongoDB documents, querying, db-connection, etc..</li>
   <li>AngularJS as part of frontend</li>
   <li>Bootstrap as base CSS styling</li>
+  <li>Bootstrap UI directives</li>
   <li>HTML5</li>
   </ul>
