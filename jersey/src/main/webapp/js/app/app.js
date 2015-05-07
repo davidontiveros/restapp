@@ -75,6 +75,19 @@ appModule.controller('DetailController', function($scope, $routeParams, $http, $
 	function onPersonLoaded(data, status, headers, config){
 		angular.extend($scope.personChanges, data);
 
+		$scope.availableSkills = [
+			{ _id: "01", name: "PHP"},
+			{ _id: "02", name: "Java"},
+			{ _id: "03", name: ".Net"},
+			{ _id: "04", name: "AngularJS"},
+			{ _id: "05", name: "NodeJS"},
+			{ _id: "06", name: "C++"},
+			{ _id: "07", name: "C#"},
+			{ _id: "08", name: "Design Patterns"},
+			{ _id: "09", name: "Android"},
+			{ _id: "10", name: "SQL"},
+		];
+
 		// add dummy skills by the moment ..
 		var skillPHP = {
 			"level" : 1,
@@ -101,11 +114,19 @@ appModule.controller('DetailController', function($scope, $routeParams, $http, $
 			}
 		};
 		var dummySkills = [skillPHP, skillJava, skillNet];
-		$scope.personChanges.personSkills = dummySkills;
+		//$scope.personChanges.personSkills = dummySkills;
+		$scope.personChanges.personSkills = [];
 		//console.log($scope.personChanges);
-		$scope.states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+		//$scope.personSkills = dummySkills;
 	}
-	
+
+	$scope.onSelectedSkill = function (model){
+		console.log(model);
+		var newPersonSkill = {level: -1, skill: model};
+		$scope.skillSelector = '';
+		$scope.personChanges.personSkills.push(newPersonSkill);
+	};
+
 	function redirectToList(){
 		$location.path("/list")
 	}

@@ -12,7 +12,8 @@
 
     <div class="form-group">
       <label>Skills</label>
-      <input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue" class="form-control">
+      <input type="text" ng-model="skillSelector" typeahead="skill as skill.name for skill in availableSkills | filter:$viewValue"
+             typeahead-on-select="onSelectedSkill($model, $label)" class="form-control" placeholder="type to search for a skill">
     </div>
     <div class="panel panel-default">
       <div class="panel-body well" style="margin: 0px;">
@@ -31,7 +32,7 @@
         <!-- THIS -->
           <div class="btn-group" ng-repeat="personSkill in personChanges.personSkills" style="padding-right: 10px;">
               <button type="button" class="btn" data-toggle="modal"
-                      ng-class="{'btn-warning': personSkill.level===1, 'btn-info': personSkill.level===2, 'btn-success': personSkill.level===3} "
+                      ng-class="{'btn-default': personSkill.level===-1, 'btn-warning': personSkill.level===1, 'btn-info': personSkill.level===2, 'btn-success': personSkill.level===3} "
                       ng-click="editSkill(personSkill);">
                 <b>{{personSkill.skill.name }}</b>
               </button>
