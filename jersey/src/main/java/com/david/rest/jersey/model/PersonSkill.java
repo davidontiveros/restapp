@@ -3,12 +3,16 @@
  */
 package com.david.rest.jersey.model;
 
+
 /**
  * @author daviD
  *
  */
+
+@org.mongodb.morphia.annotations.Embedded
 public class PersonSkill 
 {
+	@org.mongodb.morphia.annotations.Reference
 	private Skill skill;
 	private Integer level;
 	

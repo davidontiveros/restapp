@@ -29,7 +29,8 @@ public class Person extends BaseEntity
 	//private Integer id;
 	private String name;
 	private String lastname;
-	@org.mongodb.morphia.annotations.Transient
+	
+	@org.mongodb.morphia.annotations.Embedded("personSkills")
 	private List<PersonSkill> personSkills = new ArrayList<PersonSkill>();
 	
 	public Person() 

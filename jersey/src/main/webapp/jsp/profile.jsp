@@ -13,7 +13,7 @@
     <div class="form-group">
       <label>Skills</label>
       <input type="text" ng-model="skillSelector" typeahead="skill as skill.name for skill in availableSkills | filter:$viewValue"
-             typeahead-on-select="onSelectedSkill($model, $label)" class="form-control" placeholder="type to search for a skill">
+             typeahead-on-select="onSkillSelected($model, $label)" class="form-control" placeholder="type to search for a skill">
     </div>
     <div class="panel panel-default">
       <div class="panel-body well" style="margin: 0px;">

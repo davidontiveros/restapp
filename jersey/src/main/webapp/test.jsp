@@ -6,7 +6,7 @@
 	<script src="js/libs/angular.min.js"></script>
 	<script src="js/libs/angular-route.js"></script>
 	
-	<script src="js/app/app.js"></script>
+	<script src="js/app/App.js"></script>
 	<link   href="css/styles.css" rel="stylesheet" type="text/css"/>
 	
 	<title>Angular + Jersey restapp</title>	

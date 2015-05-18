@@ -21,6 +21,7 @@ public class SkillController
 	
 	static
 	{
+		/*
 		dummySkills.add(new Skill(1, "PHP"));
 		dummySkills.add(new Skill(2, "Java"));
 		dummySkills.add(new Skill(3, ".Net"));
@@ -33,14 +34,16 @@ public class SkillController
 		dummySkills.add(new Skill(10, "html5"));
 		dummySkills.add(new Skill(11, "css"));
 		dummySkills.add(new Skill(12, "desing patterns"));
+		*/
 		TOP_ID = 12;
 	}
 
 	public Integer save(String name, Integer level)
 	{
 		TOP_ID += 1;
-		Skill skill = new Skill(TOP_ID, name);
-		return skill.getId();
+		//Skill skill = new Skill(TOP_ID, name);
+		//return skill.getId();
+		return null;
 	}
 	
 	public Skill get(Integer id)

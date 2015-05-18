@@ -7,39 +7,24 @@ package com.david.rest.jersey.model;
  * @author daviD
  *
  */
-public class Skill
+@org.mongodb.morphia.annotations.Entity
+public class Skill extends BaseEntity
 {
 	public static final Integer LOW = 1;
 	public static final Integer MEDIUM = 2;
 	public static final Integer HIGH = 3;
 	
-	private Integer id;
 	private String name;
 	
 	public Skill() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Skill(Integer id, String name) 
+	public Skill(String name) 
 	{
-		this.id = id;
 		this.name = name;
 	}
-
-	/**
-	 * @return the id
-	 */
-	public Integer getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
+	
 	/**
 	 * @return the name
 	 */

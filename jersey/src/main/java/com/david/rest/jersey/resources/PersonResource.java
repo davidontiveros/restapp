@@ -17,7 +17,6 @@ import javax.ws.rs.core.MediaType;
 
 import org.mongodb.morphia.query.QueryResults;
 
-import com.david.rest.jersey.controllers.Controllers;
 import com.david.rest.jersey.daos.PersonDao;
 import com.david.rest.jersey.model.Person;
 

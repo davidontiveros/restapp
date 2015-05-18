@@ -15,7 +15,7 @@
 	<script src="js/libs/angular-route.js"></script>
 	<script src="js/libs/ui-bootstrap-tpls-0.12.1.min.js"></script>
 
-    <script src="js/app/app.js"></script>
+    <script src="js/app/App.js"></script>
 
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins)
