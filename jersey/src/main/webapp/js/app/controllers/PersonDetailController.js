@@ -1,64 +1,71 @@
 /**
  * Created by daviD on 18/05/2015.
  */
-angular.module('app').controller('PersonDetailController',
-    ['$scope', '$http', '$routeParams', '$location', '$modal', function($scope, $http, $routeParams, $location, $modal){
 
-        $scope.isCollapsed = true;
+var PersonDetailController = function($scope, $http, $routeParams, $location, $modal, personService, skillService){
 
-        $scope.person = {};
-        $scope.personChanges = {};
-        var isNew = true;
+    $scope.isCollapsed = true;
 
-        $scope.availableSkills = [];
+    $scope.person = {};
+    $scope.personChanges = {};
+    var isNew = true;
 
-        function onSkillsLoaded(data){
-            console.log(data);
-            $scope.availableSkills = data;
-        }
+    $scope.availableSkills = [];
 
-        function onPersonLoaded(data, status, headers, config){
-            angular.extend($scope.personChanges, data);
-            $http.get('rest/skillService/getSkills/').success(onSkillsLoaded);
-        }
+    function onSkillsLoaded(data){
+        console.log(data);
+        $scope.availableSkills = data;
+    }
 
-        $scope.onSkillSelected = function (model){
-            var newPersonSkill = {level: -1, skill: model};
-            $scope.skillSelector = '';
-            $scope.personChanges.personSkills.push(newPersonSkill);
-        };
+    function onPersonLoaded(data, status, headers, config){
+        angular.extend($scope.personChanges, data);
+        skillService.getSkills(onSkillsLoaded);
+    }
 
-        function redirectToList(){
-            $location.path("/list")
-        }
+    $scope.onSkillSelected = function (model){
+        var newPersonSkill = {level: -1, skill: model};
+        $scope.skillSelector = '';
+        $scope.personChanges.personSkills.push(newPersonSkill);
+    };
 
-        $scope.editSkill = function(personSkill){
+    function redirectToList(){
+        $location.path("/list")
+    }
 
-            var modalInstance = $modal.open({
-                templateUrl: 'editSkillModal.html',
-                controller: 'ModalInstanceController',
-                resolve: {
-                    personSkill: function(){
-                        return personSkill;
-                    }
+    $scope.editSkill = function(personSkill){
+
+        var modalInstance = $modal.open({
+            templateUrl: 'editSkillModal.html',
+            controller: 'SkillEditModalController',
+            resolve: {
+                personSkill: function(){
+                    return personSkill;
+                },
+                modalInstance: function(){
+                    return modalInstance;
                 }
-            });
-            modalInstance.result.then(function (personSkill) {
-            });
-        };
-
-        $scope.save = function(){
-            if(isNew){
             }
-            else{
-            }
-            angular.extend($scope.person, $scope.personChanges);
-            console.log($scope.person);
-            $http.post('rest/personService/postPerson', $scope.person).success(redirectToList);
-        }
+        });
+        // on close do something?
+        modalInstance.result.then(function (personSkill) {
+        });
+    };
 
-        if($routeParams._id){
-            isNew = false;
-            $http.get('rest/personService/getPerson/'+$routeParams._id).success(onPersonLoaded);
+    $scope.save = function(){
+        if(isNew){
         }
-}]);
+        else{
+        }
+        angular.extend($scope.person, $scope.personChanges);
+        console.log($scope.person);
+        personService.savePerson($scope.person, redirectToList);
+    }
+
+    if($routeParams._id){
+        isNew = false;
+        personService.getPerson($routeParams._id, onPersonLoaded);
+    }
+}
+
+angular.module('app').controller('PersonDetailController',
+    ['$scope', '$http', '$routeParams', '$location', '$modal', 'personService', 'skillService', PersonDetailController]);

@@ -36,7 +36,7 @@ h2{
 </div>
 
 <div class="col-lg-8 table-container">
-	<table class="table table-striped" ng-controller="ListController">
+	<table class="table table-striped" ng-controller="PersonListController">
 	<thead>
 		<tr>
 			<th>Person</th>
@@ -48,7 +48,7 @@ h2{
 			ng-class="hoverRowClass" ng-mouseenter="hoverRowClass='success'" ng-mouseleave="hoverRowClass=''"
 			ng-click="viewProfile(person._id);">
 			<td>{{person.lastname +", "+person.name}}<a ng-href="#/profile/{{person.id}}"></a></td>			
-			<td class="skills"><h4 ng-bind-html="person | skillInfo"></h4></td>
+			<td class="skills"><h4 ng-bind-html="person | SkillDetailFilter"></h4></td>
 		</tr>
 	</tbody>
 </table>

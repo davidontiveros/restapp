@@ -1,13 +1,16 @@
 /**
  * Created by daviD on 18/05/2015.
  */
-angular.module('app').controller('SkillEditModalController', ['$scope', '$http', function($scope, $http){
+
+var SkillEditModalController = function($scope, personSkill, $modalInstance){
 
     $scope.personSkill = personSkill;
 
     $scope.setLevel = function(level){
         $scope.personSkill.level = level;
-        $modalInstance.close(personSkill);
+        $modalInstance.close();
     };
 
-}]);
+}
+
+angular.module('app').controller('SkillEditModalController', ['$scope','personSkill', '$modalInstance', SkillEditModalController]);

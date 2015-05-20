@@ -7,7 +7,25 @@ angular.module('myApp.controllers').controller('Ctrlr1', ['$scope', '$http', fun
 
 }]);
 */
+var PersonListController = function($scope, $location, personService) {
 
+    $scope.persons = [];
+
+    function onSuccess(data) {
+        $scope.persons = data;
+    }
+
+    $scope.viewProfile = function (_id) {
+        console.log(_id);
+        $location.path("/profile/" + _id);
+    }
+
+    personService.getPersons(onSuccess);
+}
+
+angular.module('app').controller('PersonListController', ['$scope', '$location', 'personService', PersonListController]);
+
+/*
 angular.module('app').controller('PersonListController', ['$scope', '$http', function($scope, $http){
 
     $scope.persons = [];
@@ -22,3 +40,4 @@ angular.module('app').controller('PersonListController', ['$scope', '$http', fun
     }
 
 }]);
+*/

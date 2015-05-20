@@ -15,7 +15,14 @@
 	<script src="js/libs/angular-route.js"></script>
 	<script src="js/libs/ui-bootstrap-tpls-0.12.1.min.js"></script>
 
+
     <script src="js/app/App.js"></script>
+    <script src="js/app/filters/SkillDetailFilter.js"></script>
+    <script src="js/app/services/SkillService.js"></script>
+    <script src="js/app/services/PersonService.js"></script>
+    <script src="js/app/controllers/PersonListController.js"></script>
+    <script src="js/app/controllers/PersonDetailController.js"></script>
+    <script src="js/app/controllers/SkillEditModalController.js"></script>
 
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins)

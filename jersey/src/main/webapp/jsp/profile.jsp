@@ -1,4 +1,4 @@
-<div ng-controller="DetailController">
+<div ng-controller="PersonDetailController">
 
   <form>
     <div class="form-group">
